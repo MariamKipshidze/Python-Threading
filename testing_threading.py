@@ -1,0 +1,27 @@
+import threading
+import time
+
+start = time.perf_counter()
+
+
+def do_something(seconds):
+    print(f'Sleeping for {seconds} second(s)')
+    time.sleep(seconds)
+    print('Done Sleeping')
+
+
+threads = []
+
+
+for _ in range(10):
+    thread = threading.Thread(target=do_something, args=[1.5])
+    thread.start()
+    threads.append(thread)
+
+for thread in threads:
+    thread.join()
+
+
+finish = time.perf_counter()
+
+print(f'Finished in {round(finish - start, 2)} seconds')
